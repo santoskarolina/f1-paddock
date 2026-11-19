@@ -26,7 +26,7 @@ export function SeasonDashboard({ season, summary }) {
         <ProbabilityPanel drivers={drivers} odds={odds} summary={summary} />
       </div>
 
-      <DriverGrid drivers={drivers} teams={teams} />
+      <DriverGrid drivers={drivers} teams={teams} odds={odds} summary={summary} />
 
       <div className={styles.split}>
         <ConstructorsStandings teams={teams} />

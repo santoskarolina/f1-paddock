@@ -1,0 +1,38 @@
+.back {
+  --dark: color-mix(in srgb, var(--team) 45%, #000);
+  --mid: color-mix(in srgb, var(--team) 70%, #000);
+  container-type: inline-size;
+  width: 100%;
+  aspect-ratio: 63 / 88;
+  padding: 3%;
+  border-radius: 14px;
+  background: linear-gradient(150deg, color-mix(in srgb, var(--team) 80%, #fff), var(--team) 35%, var(--dark));
+  box-shadow: var(--shadow), inset 0 0 0 2px rgb(255 255 255 / 0.25);
+  user-select: none;
+}
+
+/* Losangos em xadrez, anéis concêntricos e faixas diagonais: tudo feito com gradientes. */
+.pattern {
+  display: grid; place-items: center; height: 100%;
+  border-radius: 2.5cqw;
+  border: 0.6cqw solid rgb(255 255 255 / 0.3);
+  background:
+    repeating-radial-gradient(circle at 50% 50%, transparent 0 7cqw, rgb(255 255 255 / 0.07) 7cqw 8cqw),
+    repeating-linear-gradient(60deg, transparent 0 5cqw, rgb(0 0 0 / 0.12) 5cqw 10cqw),
+    conic-gradient(from 45deg, var(--mid) 25%, var(--dark) 0 50%, var(--mid) 0 75%, var(--dark) 0) 0 0 / 12cqw 12cqw;
+}
+
+.emblem {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  width: 52cqw; aspect-ratio: 1;
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--team) 60%, #fff), var(--team) 60%, var(--dark));
+  color: #fff;
+}
+
+.number {
+  font-family: var(--font-race); font-style: italic; font-weight: 700; font-size: 24cqw; line-height: 0.9;
+  text-shadow: 0 0.8cqw 0 rgb(0 0 0 / 0.3);
+}
+
+.label { font-size: 4cqw; font-weight: 700; letter-spacing: 0.35em; text-transform: uppercase; opacity: 0.85; }

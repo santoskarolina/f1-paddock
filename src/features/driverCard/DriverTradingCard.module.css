@@ -1,0 +1,143 @@
+/*
+ * Carta no formato 63 × 88. As medidas internas usam cqw (1% da largura da carta),
+ * então a carta inteira escala junto, de 280 px no celular até o tamanho máximo.
+ */
+.card {
+  --frame-dark: color-mix(in srgb, var(--team) 55%, #000);
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  aspect-ratio: 63 / 88;
+  padding: 3%;
+  border-radius: 14px;
+  background:
+    linear-gradient(150deg, color-mix(in srgb, var(--team) 80%, #fff) 0%, var(--team) 35%, var(--frame-dark) 100%);
+  box-shadow: var(--shadow), inset 0 0 0 2px rgb(255 255 255 / 0.25);
+  overflow: hidden;
+  user-select: none;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 2cqw;
+  height: 100%;
+  padding: 3cqw 3.5cqw 2.5cqw;
+  border-radius: 2.5cqw;
+  color: var(--ink);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--team) 22%, var(--surface)) 0%, var(--surface) 45%);
+  font-size: 3.6cqw;
+  line-height: 1.25;
+}
+
+/* Cabeçalho: nome e pontos */
+.header { display: flex; justify-content: space-between; align-items: baseline; gap: 2cqw; }
+.name {
+  margin: 0; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+  font-family: var(--font-race); font-weight: 700; font-size: 7cqw; line-height: 1;
+}
+.points { display: flex; align-items: baseline; gap: 1cqw; margin: 0; flex: none; }
+.points span { font-size: 3.2cqw; font-weight: 700; color: var(--muted); letter-spacing: 0.04em; }
+.points strong { font-family: var(--font-race); font-style: italic; font-size: 8cqw; line-height: 1; color: var(--team); }
+
+/* Janela da foto */
+.photo {
+  position: relative; flex: 1 1 0; min-height: 0;
+  border: 0.8cqw solid color-mix(in srgb, var(--team) 70%, #000);
+  border-radius: 2cqw;
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(135deg, transparent 0 3cqw, color-mix(in srgb, var(--team) 10%, transparent) 3cqw 6cqw),
+    var(--bg);
+}
+.avatar { position: absolute; inset: 0; border-radius: 0; background: none; }
+.avatar span { font-size: 22cqw; }
+.watermark {
+  position: absolute; right: 2cqw; bottom: -4cqw;
+  font-family: var(--font-race); font-style: italic; font-weight: 700; font-size: 30cqw; line-height: 1;
+  color: var(--team); opacity: 0.25;
+}
+
+/* Faixa com equipe e número */
+.strip {
+  display: flex; justify-content: space-between; gap: 2cqw; margin: -1cqw 2cqw 0;
+  padding: 0.8cqw 2.5cqw; border-radius: 0 0 2cqw 2cqw;
+  font-size: 3.2cqw; font-weight: 700; color: #fff;
+  background: linear-gradient(90deg, var(--frame-dark), var(--team));
+}
+.strip span:first-child { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
+/* Atributos em 2 × 2 */
+.attributes {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.2cqw 4cqw;
+  margin: 0; padding: 0; list-style: none;
+}
+.attributes li { display: grid; grid-template-columns: 1fr auto; align-items: baseline; row-gap: 0.6cqw; }
+.attributes li > div { grid-column: 1 / -1; }
+.attributeLabel { color: var(--muted); font-size: 3.2cqw; }
+.attributes strong { font-size: 3.8cqw; }
+
+/* Golpes */
+.moves { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+.moves li {
+  display: flex; justify-content: space-between; align-items: center; gap: 2cqw;
+  padding: 1.4cqw 0; border-top: 0.3cqw solid var(--line);
+}
+.moves li div { display: flex; flex-direction: column; min-width: 0; }
+.moveName { font-size: 4cqw; }
+.moveText { font-size: 3cqw; color: var(--muted); }
+.moveValue { font-family: var(--font-race); font-style: italic; font-weight: 700; font-size: 7cqw; line-height: 1; }
+
+/* Texto de ambientação */
+.flavor {
+  margin: 0; padding: 1.4cqw 2.5cqw;
+  border: 0.3cqw solid color-mix(in srgb, var(--team) 45%, var(--line)); border-radius: 1.5cqw;
+  font-size: 3cqw; font-style: italic; color: var(--muted);
+}
+
+/* Rodapé */
+.footer { display: flex; justify-content: space-between; align-items: center; gap: 2cqw; font-size: 2.8cqw; color: var(--muted); }
+.rarity { display: inline-flex; align-items: center; gap: 1cqw; font-weight: 700; }
+.marks { color: var(--team); letter-spacing: 0.3cqw; }
+
+/*
+ * Brilho holográfico. A posição vem de --mx/--my (cursor) e a intensidade cresce com --hover.
+ * Sem cursor (toque, teclado), fica só o brilho estático da raridade.
+ */
+.holo {
+  position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+  mix-blend-mode: overlay;
+  opacity: calc(var(--holo-rest, 0) + var(--hover, 0) * var(--holo-boost, 0));
+  transition: opacity 0.3s ease;
+  background:
+    radial-gradient(circle at var(--mx, 50%) var(--my, 30%), rgb(255 255 255 / 0.8), transparent 45%),
+    var(--holo-bands, none);
+  background-size: 100% 100%, 260% 260%;
+  background-position: center, var(--mx, 50%) var(--my, 30%);
+}
+
+.legendary {
+  --holo-rest: 0.45;
+  --holo-boost: 0.5;
+  --holo-bands: linear-gradient(115deg,
+    transparent 15%, rgb(255 214 102 / 0.9) 30%, rgb(255 246 200 / 0.9) 38%,
+    rgb(232 160 40 / 0.9) 46%, rgb(255 225 140 / 0.9) 54%, transparent 70%);
+}
+.legendary .inner { box-shadow: inset 0 0 0 0.5cqw rgb(232 180 60 / 0.7); }
+
+.epic {
+  --holo-rest: 0.35;
+  --holo-boost: 0.45;
+  --holo-bands: linear-gradient(115deg,
+    transparent 15%, rgb(220 228 240 / 0.9) 30%, rgb(255 255 255 / 0.9) 38%,
+    rgb(160 172 190 / 0.9) 46%, rgb(235 240 248 / 0.9) 54%, transparent 70%);
+}
+.epic .inner { box-shadow: inset 0 0 0 0.5cqw rgb(190 200 215 / 0.7); }
+
+.rare {
+  --holo-rest: 0.15;
+  --holo-boost: 0.35;
+}
+
+.common .holo { display: none; }

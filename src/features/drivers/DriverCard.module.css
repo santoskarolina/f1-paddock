@@ -1,7 +1,10 @@
 .card {
   position: relative; overflow: hidden; display: flex; flex-direction: column; gap: var(--space-3);
-  padding: var(--space-4); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  width: 100%; padding: var(--space-4); text-align: left; cursor: pointer;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
+.card:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--team) 50%, var(--line)); }
 .card::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--team); }
 .number {
   position: absolute; right: 10px; top: -10px; pointer-events: none;
@@ -9,9 +12,10 @@
   color: var(--team); opacity: 0.18;
 }
 .top { display: flex; gap: var(--space-3); align-items: center; }
-.position, .team { margin: 0; font-size: 0.78rem; color: var(--muted); }
-.name { margin: 0; font-size: 1rem; line-height: 1.2; }
-.stats { display: flex; gap: var(--space-6); margin: 0; }
-.stats div { display: flex; flex-direction: column-reverse; }
-.stats dt { font-size: 0.72rem; color: var(--muted); }
-.stats dd { margin: 0; font-size: 1.3rem; font-weight: 700; }
+.identity { display: flex; flex-direction: column; min-width: 0; }
+.position, .team { font-size: 0.78rem; color: var(--muted); }
+.name { font-size: 1rem; font-weight: 700; line-height: 1.2; }
+.stats { display: flex; gap: var(--space-6); }
+.stat { display: flex; flex-direction: column; }
+.statLabel { font-size: 0.72rem; color: var(--muted); }
+.statValue { font-size: 1.3rem; font-weight: 700; font-variant-numeric: tabular-nums; }

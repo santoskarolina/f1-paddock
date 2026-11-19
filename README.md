@@ -9,6 +9,7 @@ da temporada atual de Fórmula 1, tudo com dados ao vivo.
 npm install
 npm run dev      # http://localhost:5173
 npm run build    # gera a pasta dist/ para publicar
+npm test         # testes das regras puras (Vitest)
 ```
 
 ## Fontes de dados
@@ -63,6 +64,31 @@ reproduzíveis e não mudam a cada renderização, só quando os dados da tempor
 **Limitações:** o modelo não considera abandonos, punições, desempenho recente, características de cada
 circuito nem critérios de desempate. É uma estimativa baseada na pontuação até aqui, não uma previsão.
 
+## Carta colecionável do piloto
+
+Clicar num piloto na seção "O grid" abre a carta colecionável dele, num modal. O design é original, sem
+marcas de jogos de cartas, da F1 ou das equipes.
+
+- **Regras** (`src/domain/driverCard.js`): `buildDriverCard` monta tudo que a carta mostra.
+  - **PTS:** os pontos do campeonato, em destaque no canto superior.
+  - **Raridade pela posição:** 1º Lendária (brilho dourado), 2º–3º Épica (prateado), 4º–10º Rara
+    (brilho suave), demais Comum (sem brilho).
+  - **Atributos de 0 a 99:** Ritmo (pontos por corrida), Vitórias, Pódios e Consistência (pódios por
+    corrida). O melhor do grid em cada um recebe 99.
+  - **Golpes:** Bandeirada Final (vitórias × 25), Trem do Pódio (pódios × 15), Caçador de Pontos (pontos
+    por corrida) e Vácuo na Reta (pontos ÷ 10). A carta mostra os dois de maior valor; empates seguem
+    essa ordem.
+  - **Texto de ambientação,** chance de título da simulação e número da carta (`posição/total`).
+- **Componentes** (`src/features/driverCard/`): `DriverTradingCard` (frente, proporção 63 × 88),
+  `CardBack` (verso com padrão geométrico na cor da equipe) e `DriverCardDialog` (modal).
+- **Interação:** clicar na carta ou apertar Enter vira a carta; ← → trocam de piloto, respeitando o
+  filtro de equipe; Esc, clique fora ou × fecham. Com o mouse, a carta inclina até 12° e o reflexo
+  acompanha o cursor (`useTiltEffect`); no toque, fica só o brilho parado.
+- **Download:** o botão "Baixar carta" salva em PNG a face visível (frente ou verso), com ~900 px de
+  largura. Usa a biblioteca `html-to-image`, carregada só no primeiro clique (`downloadCard.js`).
+- **Movimento reduzido:** com `prefers-reduced-motion`, não há inclinação, animação de entrada nem flip
+  animado.
+
 ## Estrutura
 
 ```
@@ -70,8 +96,10 @@ src/
 ├── data/          circuits.json (traçados) e a licença MIT do projeto de origem
 ├── config/        constantes (URLs, tabela de pontos, parâmetros da simulação) e cores das equipes
 ├── services/      acesso às APIs (http com cache, jolpica, openf1) e montagem do modelo da temporada
-├── domain/        regras puras, sem React: resumo da temporada, duelos, simulação e geometria dos traçados
-├── hooks/         useSeason, useSimulation, useCountdown, useHoverCard, useElementWidth, usePrefersReducedMotion
+├── domain/        regras puras, sem React: resumo da temporada, duelos, simulação, carta do piloto
+│                  e geometria dos traçados (testes ao lado, em *.test.js)
+├── hooks/         useSeason, useSimulation, useCountdown, useHoverCard, useElementWidth, usePrefersReducedMotion,
+│                  useTiltEffect
 ├── utils/         formatação (pt-BR) e bandeiras
 ├── components/
 │   ├── ui/        peças genéricas: Section, ProgressBar, HoverCard, SegmentedControl, StatusMessage, Flag
@@ -82,6 +110,7 @@ src/
     ├── standings/     torre de cronometragem
     ├── probabilities/ chances de título/vice e da próxima corrida
     ├── drivers/       cartões, avatar com foto e cartão flutuante do piloto
+    ├── driverCard/    carta colecionável do piloto: frente, verso e modal
     ├── teams/         construtores e duelos entre companheiros
     ├── circuits/      traçado do circuito em SVG, com carro animado
     ├── calendar/      mapa-múndi interativo, lista de etapas e ficha da corrida (modal)

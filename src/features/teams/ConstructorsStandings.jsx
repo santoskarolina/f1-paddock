@@ -7,17 +7,17 @@ import { formatGap, formatNumber } from '../../utils/format';
 import styles from './ConstructorsStandings.module.css';
 
 const TEAM_PHOTO = {
-  'mercedes': 'public/teams/mercedes.svg',
-  'ferrari': 'public/teams/ferrari.avif',
-  'red_bull': 'public/teams/red_bull.png',
-  'mclaren': 'public/teams/mclaren.png',
-  'rb': 'public/teams/rb.png',
-  'alpine': 'public/teams/alpine.png',
-  'haas': 'public/teams/haas.png',
-  'audi': 'public/teams/audi.png',
-  'williams': 'public/teams/williams.png',
-  'aston_martin': 'public/teams/aston_martin.png',
-  'cadillac': 'public/teams/cadillac.png'
+  'mercedes': '/teams/mercedes.svg',
+  'ferrari': '/teams/ferrari.avif',
+  'red_bull': '/teams/red_bull.png',
+  'mclaren': '/teams/mclaren.png',
+  'rb': '/teams/rb.png',
+  'alpine': '/teams/alpine.png',
+  'haas': '/teams/haas.png',
+  'audi': '/teams/audi.png',
+  'williams': '/teams/williams.png',
+  'aston_martin': '/teams/aston_martin.png',
+  'cadillac': '/teams/cadillac.png'
 }
 
 function TeamTooltip({ team }) {

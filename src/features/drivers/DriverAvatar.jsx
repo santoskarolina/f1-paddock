@@ -1,22 +1,33 @@
 import styles from './DriverAvatar.module.css';
 
 const DRIVERS_PHOTO = {
-  'ocon': 'public/drivers/ocon.avif',
-  'rafael_camara': 'public/drivers/rafael_camara.avif',
-  'tsunoda': 'public/drivers/tsunoda.png',
-  'ryo_hirakawa': 'public/drivers/hirakawa.jpg',
-  'arvid_lindblad': 'public/drivers/arvid_lindblad.avif'
+  'ocon': '/drivers/ocon.avif',
+  'rafael_camara': '/drivers/rafael_camara.avif',
+  'tsunoda': '/drivers/tsunoda.png',
+  'ryo_hirakawa': '/drivers/hirakawa.jpg',
+  'arvid_lindblad': '/drivers/arvid_lindblad.avif'
 }
 
-/** Foto da OpenF1; se não existir ou não carregar, mostra o número na cor da equipe. */
-export function DriverAvatar({ driver, size = 72 }) {
-  const showPhoto = DRIVERS_PHOTO[driver.id] || driver.headshotUrl;
-  
+/**
+ * A OpenF1 entrega a menor versão da foto (".transform/1col/", 93 px).
+ * O servidor da F1 tem outras: 2col = 206 px e 4col = 432 px.
+ * Avatares pequenos usam 2col (nítido em telas 2x); os grandes, como a carta, usam 4col.
+ */
+function headshotForSize(url, size) {
+  if (!url) return null;
+  const variant = typeof size === 'number' && size <= 100 ? '2col' : '4col';
+  return url.replace(/\.transform\/\w+\//, `.transform/${variant}/`);
+}
+
+/** Foto local ou da OpenF1; se não existir, mostra o número na cor da equipe. */
+export function DriverAvatar({ driver, size = 72, className = '' }) {
+  const photo = DRIVERS_PHOTO[driver.id] ?? headshotForSize(driver.headshotUrl, size);
+
   return (
-    <div className={styles.avatar} style={{ '--team': driver.color, width: size, height: size }}>
-      {showPhoto ? (
+    <div className={`${styles.avatar} ${className}`} style={{ '--team': driver.color, width: size, height: size }}>
+      {photo ? (
         <img
-          src={DRIVERS_PHOTO[driver.id] || driver.headshotUrl}
+          src={photo}
           alt={`Foto de ${driver.name}`}
           loading="lazy"
           referrerPolicy="no-referrer"

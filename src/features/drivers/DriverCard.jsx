@@ -3,7 +3,8 @@ import { formatNumber } from '../../utils/format';
 import { DriverAvatar } from './DriverAvatar';
 import styles from './DriverCard.module.css';
 
-export function DriverCard({ driver }) {
+/** Cartão do grid. É um botão: ao clicar, abre a carta colecionável do piloto. */
+export function DriverCard({ driver, onSelect }) {
   const stats = [
     { label: 'pontos', value: driver.points },
     { label: 'vitórias', value: driver.wins },
@@ -11,24 +12,30 @@ export function DriverCard({ driver }) {
   ];
 
   return (
-    <article className={styles.card} style={{ '--team': driver.color }}>
+    <button
+      type="button"
+      className={styles.card}
+      style={{ '--team': driver.color }}
+      onClick={() => onSelect(driver.id)}
+      aria-label={`Abrir carta de ${driver.name}`}
+    >
       <span className={styles.number} aria-hidden="true">{driver.number}</span>
-      <div className={styles.top}>
+      <span className={styles.top}>
         <DriverAvatar driver={driver} size={56} />
-        <div>
-          <p className={styles.position}>{driver.position}º no campeonato</p>
-          <h3 className={styles.name}><Flag iso={driver.nationalityIso} />{driver.name}</h3>
-          <p className={styles.team}>{driver.team.name}</p>
-        </div>
-      </div>
-      <dl className={styles.stats}>
+        <span className={styles.identity}>
+          <span className={styles.position}>{driver.position}º no campeonato</span>
+          <span className={styles.name}><Flag iso={driver.nationalityIso} />{driver.name}</span>
+          <span className={styles.team}>{driver.team.name}</span>
+        </span>
+      </span>
+      <span className={styles.stats}>
         {stats.map((stat) => (
-          <div key={stat.label}>
-            <dt>{stat.label}</dt>
-            <dd className="tabular">{formatNumber(stat.value)}</dd>
-          </div>
+          <span key={stat.label} className={styles.stat}>
+            <span className={styles.statValue}>{formatNumber(stat.value)}</span>
+            <span className={styles.statLabel}>{stat.label}</span>
+          </span>
         ))}
-      </dl>
-    </article>
+      </span>
+    </button>
   );
 }

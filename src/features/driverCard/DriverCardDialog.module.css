@@ -1,0 +1,58 @@
+.dialog {
+  width: min(380px, calc(100vw - 24px)); max-height: calc(100vh - 24px); padding: 0;
+  color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow);
+}
+.dialog::backdrop { background: rgb(10 10 16 / 0.65); backdrop-filter: blur(3px); }
+
+.content { position: relative; display: flex; flex-direction: column; }
+.content::before { content: ''; position: absolute; inset: 0 0 auto; height: 4px; background: var(--team); border-radius: 16px 16px 0 0; }
+
+.header { display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); padding: var(--space-4) var(--space-4) 0; }
+.kicker { margin: 0; color: var(--muted); font-size: 0.85rem; }
+.close { width: 36px; height: 36px; flex: none; border: 1px solid var(--line); border-radius: 50%; background: none; font-size: 1.4rem; line-height: 1; cursor: pointer; }
+
+.stage { display: flex; flex-direction: column; align-items: center; gap: var(--space-3); padding: var(--space-4); }
+
+/* Inclinação: --rx/--ry vêm do useTiltEffect. */
+.tilt {
+  width: min(300px, 100%);
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.25s ease-out;
+}
+
+/* A carta "sai do baralho": cresce e gira de leve até a posição final. */
+.deal { animation: deal 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) backwards; }
+@keyframes deal {
+  from { opacity: 0; transform: perspective(1000px) translateY(25%) scale(0.55) rotate(-14deg); }
+  60% { opacity: 1; transform: perspective(1000px) translateY(-2%) scale(1.03) rotate(2deg); }
+  to { opacity: 1; transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
+}
+
+/* Flip 3D: as duas faces ficam empilhadas e a de trás começa virada. */
+.flipper {
+  position: relative; display: grid;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.3, 0.7, 0.2, 1);
+  cursor: pointer;
+  border-radius: 14px;
+}
+.flipper:focus-visible { outline-offset: 4px; }
+.flipped { transform: rotateY(180deg); }
+.front, .back { grid-area: 1 / 1; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.back { transform: rotateY(180deg); }
+
+/* Movimento reduzido: sem inclinação, sem entrada e troca de face instantânea. */
+.still, .still .flipper { transition: none; animation: none; }
+
+.actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-2); }
+.actionButton {
+  padding: 4px 12px; border: 1px solid var(--line); border-radius: 999px;
+  background: none; color: var(--muted); font-size: 0.8rem; cursor: pointer;
+}
+.actionButton:disabled { opacity: 0.6; cursor: progress; }
+.error { margin: 0; font-size: 0.8rem; color: var(--accent); }
+
+.footer { display: flex; justify-content: space-between; padding: 0 var(--space-4) var(--space-4); }
+.footer button { padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px; background: none; cursor: pointer; font-size: 0.85rem; }
+.footer button:disabled { opacity: 0.4; cursor: default; }
