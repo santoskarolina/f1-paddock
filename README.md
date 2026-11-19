@@ -1,4 +1,4 @@
-# Paddock — Temporada de F1 em números
+# Paddock Stats
 
 Site em React (Vite) com classificação, probabilidades, grid de pilotos com foto, construtores e calendário
 de qualquer temporada de Fórmula 1 desde 1950 (a atual por padrão), tudo com dados ao vivo.
