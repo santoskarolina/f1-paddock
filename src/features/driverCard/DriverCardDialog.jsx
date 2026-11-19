@@ -8,7 +8,6 @@ import styles from './DriverCardDialog.module.css';
 
 const TITLE_ID = 'driver-card-title';
 
-/** Carta com flip (clique ou Enter) e inclinação que segue o mouse. */
 function FlippableCard({ driver, card, reducedMotion }) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [download, setDownload] = useState('idle'); // idle | working | error
@@ -17,7 +16,6 @@ function FlippableCard({ driver, card, reducedMotion }) {
   const tilt = useTiltEffect({ maxTilt: 12, disabled: reducedMotion });
   const flip = () => setIsFlipped((value) => !value);
 
-  // Baixa a face que está visível no momento.
   const handleDownload = async () => {
     const face = isFlipped ? 'verso' : 'frente';
     const node = (isFlipped ? backRef : frontRef).current?.firstElementChild;
@@ -84,7 +82,6 @@ function FlippableCard({ driver, card, reducedMotion }) {
   );
 }
 
-/** Carta colecionável do piloto numa janela modal, no mesmo padrão da ficha da corrida. */
 export function DriverCardDialog({ driver, card, onClose, onPrevious, onNext }) {
   const dialogRef = useRef(null);
   const reducedMotion = usePrefersReducedMotion();
