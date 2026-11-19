@@ -1,7 +1,7 @@
 # Paddock — Temporada de F1 em números
 
 Site em React (Vite) com classificação, probabilidades, grid de pilotos com foto, construtores e calendário
-da temporada atual de Fórmula 1, tudo com dados ao vivo.
+de qualquer temporada de Fórmula 1 desde 1950 (a atual por padrão), tudo com dados ao vivo.
 
 ## Como rodar
 
@@ -16,8 +16,8 @@ npm test         # testes das regras puras (Vitest)
 
 | API | Uso | Endpoints |
 | --- | --- | --- |
-| [Jolpica-F1](https://github.com/jolpica/jolpica-f1) | classificações, calendário e pódios | `/current/driverstandings`, `/current/constructorstandings`, `/current/races`, `/current/results/{1,2,3}` |
-| [OpenF1](https://openf1.org) | fotos (`headshot_url`) e cores das equipes | `/drivers?session_key=latest` |
+| [Jolpica-F1](https://github.com/jolpica/jolpica-f1) | classificações, calendário e pódios | `/{ano}/driverstandings`, `/{ano}/constructorstandings`, `/{ano}/races`, `/{ano}/results/{1,2,3}` |
+| [OpenF1](https://openf1.org) | fotos (`headshot_url`) e cores das equipes, a partir de 2023 | `/sessions?year={ano}&session_type=Race`, `/drivers?session_key=…` |
 | [bacinger/f1-circuits](https://github.com/bacinger/f1-circuits) (MIT) | traçado, extensão, altitude e ano do 1º GP de cada circuito | arquivo local `src/data/circuits.json` |
 | [world-atlas](https://github.com/topojson/world-atlas) (Natural Earth) | contorno dos continentes no mapa | pacote npm |
 
@@ -28,6 +28,16 @@ então não é preciso manter uma tabela de IDs entre as fontes. Se um circuito 
 As respostas ficam em cache por 10 minutos (memória + `localStorage`) e as chamadas à Jolpica são feitas em
 sequência, com nova tentativa em caso de HTTP 429, para respeitar o limite de requisições.
 Se a OpenF1 falhar, o site continua funcionando e mostra o número do piloto no lugar da foto.
+
+## Escolha da temporada
+
+O seletor no topo troca a temporada exibida, de 1950 até o ano atual. O ano fica na URL
+(`?temporada=2024`), então o link pode ser compartilhado e o botão "voltar" do navegador funciona.
+
+- Fotos e cores oficiais vêm da última corrida daquela temporada na OpenF1, que só tem dados a partir de
+  2023. Antes disso, os cartões mostram o número do piloto e as cores de reserva de `config/teams.js`.
+- Temporadas encerradas ficam em cache por uma semana; a atual, por 10 minutos.
+- Numa temporada encerrada, as probabilidades refletem o resultado final (100% para o campeão).
 
 ## Como as probabilidades são calculadas
 
@@ -99,7 +109,7 @@ src/
 ├── domain/        regras puras, sem React: resumo da temporada, duelos, simulação, carta do piloto
 │                  e geometria dos traçados (testes ao lado, em *.test.js)
 ├── hooks/         useSeason, useSimulation, useCountdown, useHoverCard, useElementWidth, usePrefersReducedMotion,
-│                  useTiltEffect
+│                  useTiltEffect, useSelectedSeason (ano escolhido, guardado na URL)
 ├── utils/         formatação (pt-BR) e bandeiras
 ├── components/
 │   ├── ui/        peças genéricas: Section, ProgressBar, HoverCard, SegmentedControl, StatusMessage, Flag
@@ -107,6 +117,7 @@ src/
 └── features/      uma pasta por área do site
     ├── hero/          manchete, líder, contagem regressiva e números da temporada
     ├── season/        faixa com o vencedor de cada etapa
+    ├── seasonPicker/  seletor de temporada da barra do topo
     ├── standings/     torre de cronometragem
     ├── probabilities/ chances de título/vice e da próxima corrida
     ├── drivers/       cartões, avatar com foto e cartão flutuante do piloto

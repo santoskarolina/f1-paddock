@@ -1,0 +1,48 @@
+.scene { position: relative; width: min(320px, 80vw); margin: 0 auto var(--space-4); padding-top: var(--space-4); overflow: hidden; }
+
+/* O carro avança e recua um pouco, como se disputasse posição, e trepida no asfalto. */
+.car { position: relative; width: 62%; margin: 0 auto -6px; animation: surge 2.6s ease-in-out infinite alternate; }
+.svg { display: block; width: 100%; height: auto; animation: rumble 0.18s linear infinite alternate; }
+@keyframes surge { from { transform: translateX(-14%); } to { transform: translateX(14%); } }
+@keyframes rumble { from { transform: translateY(0); } to { transform: translateY(-1px); } }
+
+.body { fill: var(--accent); }
+.stripe { stroke: #fff; stroke-width: 2.5; opacity: 0.85; }
+.wing { fill: color-mix(in srgb, var(--accent) 70%, #000); }
+.dark { fill: #2a2b33; }
+.helmet { fill: #f5c400; stroke: #2a2b33; stroke-width: 1.5; }
+.halo { fill: none; stroke: #2a2b33; stroke-width: 3; stroke-linecap: round; }
+.tyre { fill: #1d1e24; }
+.rim { fill: #8a8d99; }
+.spokes { stroke: #1d1e24; stroke-width: 2; }
+
+/* fill-box: a roda gira em torno do próprio centro, e não do centro do SVG. */
+.wheel { transform-box: fill-box; transform-origin: center; animation: spin 0.35s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Rastros de ar atrás do carro. */
+.streak {
+  position: absolute; right: 100%; height: 2px; width: 40%; border-radius: 2px;
+  background: linear-gradient(90deg, transparent, var(--muted));
+  animation: streak 0.6s linear infinite;
+}
+.streak:nth-child(1) { top: 30%; }
+.streak:nth-child(2) { top: 50%; width: 55%; animation-delay: 0.2s; }
+.streak:nth-child(3) { top: 70%; animation-delay: 0.4s; }
+@keyframes streak { from { transform: translateX(60%); opacity: 0.9; } to { transform: translateX(-40%); opacity: 0; } }
+
+/* Asfalto com faixas correndo para trás e zebra embaixo. */
+.road {
+  height: 10px; border-radius: 2px;
+  background:
+    repeating-linear-gradient(90deg, var(--muted) 0 26px, transparent 26px 52px) center / 100% 2px no-repeat,
+    color-mix(in srgb, var(--ink) 18%, var(--surface));
+  animation: road 0.35s linear infinite;
+}
+.kerb {
+  height: 6px;
+  background: repeating-linear-gradient(90deg, var(--accent) 0 16px, #fff 16px 32px);
+  animation: kerb 0.35s linear infinite;
+}
+@keyframes road { to { background-position: -52px center, 0 0; } }
+@keyframes kerb { to { background-position: -32px 0; } }

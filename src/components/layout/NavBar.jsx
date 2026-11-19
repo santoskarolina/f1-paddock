@@ -1,6 +1,7 @@
 import styles from './NavBar.module.css';
 
-export function NavBar({ links }) {
+/** Barra fixa no topo; `children` aparece à direita (ex.: seletor de temporada). */
+export function NavBar({ links, children }) {
   return (
     <nav className={styles.nav} aria-label="Seções">
       <span className={styles.brand}>Paddock</span>
@@ -11,6 +12,7 @@ export function NavBar({ links }) {
           </li>
         ))}
       </ul>
+      {children && <div className={styles.aside}>{children}</div>}
     </nav>
   );
 }

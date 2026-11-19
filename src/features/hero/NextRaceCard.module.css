@@ -7,3 +7,6 @@
 .name { margin: 0 0 var(--space-1); font-family: var(--font-race); font-style: italic; font-weight: 700; font-size: 2rem; line-height: 1.05; }
 .meta { margin: 0; font-size: 0.85rem; color: var(--muted); }
 .track { max-width: 300px; align-self: center; width: 100%; }
+.podium { display: flex; flex-direction: column; gap: var(--space-1); margin: 0; padding: 0; list-style: none; font-size: 0.9rem; }
+.podium li { display: flex; align-items: center; gap: var(--space-2); padding-left: var(--space-2); border-left: 3px solid var(--team); }
+.place { width: 2ch; font-weight: 700; color: var(--muted); }

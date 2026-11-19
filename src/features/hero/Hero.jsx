@@ -1,11 +1,25 @@
 import { Flag } from '../../components/ui/Flag';
 import { formatNumber } from '../../utils/format';
 import { DriverAvatar } from '../drivers/DriverAvatar';
-import { NextRaceCard } from './NextRaceCard';
+import { FinalRaceCard, NextRaceCard } from './NextRaceCard';
 import styles from './Hero.module.css';
 
 function Headline({ summary }) {
-  const { leader, runnerUp, gap, pointsLeft, isTitleDecided } = summary;
+  const { leader, runnerUp, gap, pointsLeft, isTitleDecided, isFinished } = summary;
+
+  if (isFinished) {
+    return (
+      <>
+        <h1 className={styles.title}>Temporada encerrada.</h1>
+        {leader && runnerUp && (
+          <p className={styles.lede}>
+            <strong>{leader.name}</strong> foi campeão com <strong className="tabular">{formatNumber(leader.points)}</strong> pontos,{' '}
+            <strong className="tabular">{formatNumber(gap)}</strong> à frente de <strong>{runnerUp.name}</strong>.
+          </p>
+        )}
+      </>
+    );
+  }
 
   return (
     <>
@@ -49,12 +63,17 @@ export function Hero({ summary }) {
       <div className={styles.main}>
         <div className={styles.checker} aria-hidden="true" />
         <p className={styles.season}>
-          Temporada de Fórmula 1, após <strong>{summary.completedRaces}</strong> de <strong>{summary.totalRaces}</strong> etapas
+          Temporada <strong>{summary.year}</strong> de Fórmula 1, após <strong>{summary.completedRaces}</strong> de{' '}
+          <strong>{summary.totalRaces}</strong> etapas
         </p>
         <Headline summary={summary} />
         {summary.leader && <LeaderBadge leader={summary.leader} isChampion={summary.isTitleDecided} />}
       </div>
-      <NextRaceCard race={summary.nextRace} />
+      {summary.nextRace ? (
+        <NextRaceCard race={summary.nextRace} />
+      ) : (
+        summary.lastRace && <FinalRaceCard race={summary.lastRace} />
+      )}
     </header>
   );
 }

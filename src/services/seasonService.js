@@ -133,22 +133,22 @@ function mapRaces(schedule, podiumsByRound, drivers, layouts) {
 }
 
 /**
- * Carrega e normaliza a temporada atual.
+ * Carrega e normaliza uma temporada (ano, de 1950 em diante).
  * As chamadas à Jolpica são sequenciais porque a API limita rajadas de requisições.
  * A OpenF1 é opcional: se ela falhar, o site funciona sem fotos.
- * @returns {Promise<{ drivers: Driver[], teams: Team[], races: Race[] }>}
+ * @returns {Promise<{ year: number, drivers: Driver[], teams: Team[], races: Race[] }>}
  */
-export async function loadSeason(signal) {
-  const driverStandings = await getDriverStandings(signal);
-  const constructorStandings = await getConstructorStandings(signal);
-  const schedule = await getSchedule(signal);
+export async function loadSeason(season, signal) {
+  const driverStandings = await getDriverStandings(season, signal);
+  const constructorStandings = await getConstructorStandings(season, signal);
+  const schedule = await getSchedule(season, signal);
 
   const resultsByPosition = [];
   for (const position of PODIUM_POSITIONS) {
-    resultsByPosition.push(await getResultsAtPosition(position, signal));
+    resultsByPosition.push(await getResultsAtPosition(season, position, signal));
   }
 
-  const profiles = await getDriverProfiles(signal).catch(() => new Map());
+  const profiles = await getDriverProfiles(season, signal).catch(() => new Map());
   const layouts = await loadCircuitLayouts().catch(() => []);
   const podiums = indexPodiums(resultsByPosition);
 
@@ -156,5 +156,5 @@ export async function loadSeason(signal) {
   const teams = mapTeams(constructorStandings, podiums.byTeam, drivers);
   const races = mapRaces(schedule, podiums.byRound, drivers, layouts);
 
-  return { drivers, teams, races };
+  return { year: season, drivers, teams, races };
 }

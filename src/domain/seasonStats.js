@@ -1,6 +1,6 @@
 import { RACE_POINTS, SPRINT_POINTS } from '../config/constants';
 
-export function summarizeSeason({ drivers, teams, races }) {
+export function summarizeSeason({ year, drivers, teams, races }) {
   const completed = races.filter((r) => r.status === 'done');
   const pending = races.filter((r) => r.status !== 'done');
   const pendingSprints = pending.filter((r) => r.hasSprint).length;
@@ -12,6 +12,8 @@ export function summarizeSeason({ drivers, teams, races }) {
   const topTeam = [...teams].sort((a, b) => b.wins - a.wins)[0] ?? null;
 
   return {
+    year,
+    isFinished: races.length > 0 && pending.length === 0,
     completedRaces: completed.length,
     totalRaces: races.length,
     remainingRaces: pending.length,
@@ -24,6 +26,7 @@ export function summarizeSeason({ drivers, teams, races }) {
     distinctWinners: winners.size,
     topTeam,
     nextRace: races.find((r) => r.status === 'next') ?? null,
+    lastRace: completed.at(-1) ?? null,
   };
 }
 
