@@ -15,9 +15,9 @@ const SORT_OPTIONS = [
   { value: 'podiums', label: 'Pódios' },
 ];
 
-function TowerRow({ driver, rank, metric, max, gap, onHover, onLeave }) {
+function TowerRow({ driver, rank, metric, max, gap, tooltipProps }) {
   return (
-    <li className={styles.row} onPointerMove={onHover} onPointerLeave={onLeave}>
+    <li className={styles.row} {...tooltipProps}>
       <span className={styles.rank}>{rank}</span>
       <span className={styles.tick} style={{ background: driver.color }} />
       <span className={styles.code}>{driver.code}</span>
@@ -30,7 +30,7 @@ function TowerRow({ driver, rank, metric, max, gap, onHover, onLeave }) {
 
 export function TimingTower({ drivers, odds }) {
   const [metric, setMetric] = useState('points');
-  const { containerRef, card, show, hide } = useHoverCard();
+  const { containerRef, card, bind } = useHoverCard();
 
   const sorted = useMemo(
     () => [...drivers].sort((a, b) => b[metric] - a[metric] || b.points - a.points),
@@ -55,8 +55,7 @@ export function TimingTower({ drivers, odds }) {
               metric={metric}
               max={max}
               gap={gapToLeader(drivers, driver)}
-              onHover={(e) => show(e, <DriverHoverCard driver={driver} odds={odds.get(driver.code)} />)}
-              onLeave={hide}
+              tooltipProps={bind(() => <DriverHoverCard driver={driver} odds={odds.get(driver.code)} />)}
             />
           ))}
         </ol>

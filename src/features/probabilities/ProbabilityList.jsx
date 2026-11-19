@@ -7,7 +7,7 @@ import styles from './ProbabilityList.module.css';
 
 /** Lista os pilotos com chance > 0 em uma métrica da simulação, do maior para o menor. */
 export function ProbabilityList({ title, drivers, odds, metric, limit }) {
-  const { containerRef, card, show, hide } = useHoverCard();
+  const { containerRef, card, bind } = useHoverCard();
 
   const ranked = drivers
     .map((driver) => ({ driver, chance: odds.get(driver.code)?.[metric] ?? 0 }))
@@ -24,8 +24,7 @@ export function ProbabilityList({ title, drivers, odds, metric, limit }) {
           <div
             key={driver.id}
             className={styles.row}
-            onPointerMove={(e) => show(e, <DriverHoverCard driver={driver} odds={odds.get(driver.code)} />)}
-            onPointerLeave={hide}
+            {...bind(() => <DriverHoverCard driver={driver} odds={odds.get(driver.code)} />)}
           >
             <span className={styles.name}><b>{driver.code}</b>{driver.name.split(' ').at(-1)}</span>
             <ProgressBar value={chance} max={100} color={driver.color} size="lg" />

@@ -8,7 +8,7 @@ import { DriverHoverCard } from '../drivers/DriverHoverCard';
 import styles from './TeammateDuels.module.css';
 
 export function TeammateDuels({ drivers, teams, odds }) {
-  const { containerRef, card, show, hide } = useHoverCard();
+  const { containerRef, card, bind } = useHoverCard();
   const duels = buildTeammateDuels(drivers, teams);
 
   return (
@@ -23,8 +23,7 @@ export function TeammateDuels({ drivers, teams, odds }) {
                 <div
                   key={driver.id}
                   className={styles.row}
-                  onPointerMove={(e) => show(e, <DriverHoverCard driver={driver} odds={odds.get(driver.code)} />)}
-                  onPointerLeave={hide}
+                  {...bind(() => <DriverHoverCard driver={driver} odds={odds.get(driver.code)} />)}
                 >
                   <b>{driver.code}</b>
                   <ProgressBar value={driver.points} max={max} color={team.color} size="sm" />

@@ -35,7 +35,7 @@ function Legend({ races }) {
 }
 
 export function SeasonStrip({ races }) {
-  const { containerRef, card, show, hide } = useHoverCard();
+  const { containerRef, card, bind } = useHoverCard();
 
   return (
     <Section
@@ -50,8 +50,7 @@ export function SeasonStrip({ races }) {
             <div
               key={race.round}
               className={`${styles.cell} ${styles[race.status]}`}
-              onPointerMove={(e) => show(e, <RaceTooltip race={race} />)}
-              onPointerLeave={hide}
+              {...bind(() => <RaceTooltip race={race} />)}
             >
               <i style={winner ? { background: winner.color } : undefined} />
               <b>{winner?.code ?? ''}</b>

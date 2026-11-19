@@ -31,7 +31,7 @@ function TeamTooltip({ team }) {
 }
 
 export function ConstructorsStandings({ teams }) {
-  const { containerRef, card, show, hide } = useHoverCard();
+  const { containerRef, card, bind } = useHoverCard();
   const max = Math.max(1, ...teams.map((t) => t.points));
 
   return (
@@ -42,8 +42,7 @@ export function ConstructorsStandings({ teams }) {
             <li
               key={team.id}
               className={styles.row}
-              onPointerMove={(e) => show(e, <TeamTooltip team={team} />)}
-              onPointerLeave={hide}
+              {...bind(() => <TeamTooltip team={team} />)}
             >
               <span className={styles.rank}>{team.position}</span>
               <span className={styles.tick} style={{ background: team.color }} />
