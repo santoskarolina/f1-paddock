@@ -1,0 +1,8 @@
+.block + .block { margin-top: var(--space-6); }
+.title { margin: 0 0 var(--space-2); font-size: 1rem; }
+.list { position: relative; }
+.row { display: grid; grid-template-columns: minmax(100px, 150px) minmax(0, 1fr) 46px; gap: var(--space-2); align-items: center; padding: 4px 0; }
+.name { font-size: 0.85rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.name b { font-family: var(--font-race); font-style: italic; margin-right: 6px; font-size: 1rem; }
+.value { text-align: right; font-weight: 700; }
+.empty { margin: 0; color: var(--muted); font-size: 0.85rem; }

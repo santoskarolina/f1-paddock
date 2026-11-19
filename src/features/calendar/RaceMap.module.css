@@ -1,0 +1,14 @@
+.wrapper { position: relative; width: 100%; min-height: 160px; }
+.sphere { fill: color-mix(in srgb, var(--surface) 60%, transparent); stroke: var(--line); }
+.graticule { fill: none; stroke: var(--line); stroke-width: 0.5; opacity: 0.6; }
+.land { fill: color-mix(in srgb, var(--ink) 12%, var(--surface)); }
+.route { fill: none; stroke: var(--muted); stroke-width: 1.2; stroke-dasharray: 3 4; opacity: 0.7; }
+.marker { cursor: pointer; outline: none; }
+.dot { fill: var(--team); stroke: var(--bg); stroke-width: 1.5; transition: r 150ms; }
+.marker:hover .dot, .marker:focus-visible .dot { r: 8; }
+.upcoming .dot { fill: var(--bg); stroke: var(--muted); stroke-width: 2; }
+.next .dot { fill: var(--accent); }
+.pulse { fill: none; stroke: var(--accent); stroke-width: 2; transform-origin: center; animation: pulse 1.8s ease-out infinite; }
+@keyframes pulse { from { transform: scale(0.6); opacity: 1; } to { transform: scale(2); opacity: 0; } }
+.tooltip { display: flex; flex-direction: column; padding: var(--space-2) var(--space-3); font-size: 0.8rem; min-width: 180px; }
+.tooltip span { color: var(--muted); }

@@ -1,0 +1,9 @@
+.card {
+  position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; gap: var(--space-4);
+  min-height: 260px; padding: var(--space-6); background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+}
+.card::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--accent); }
+.kicker { margin: 0; font-size: 0.85rem; font-weight: 600; color: var(--muted); }
+.name { margin: 0 0 var(--space-1); font-family: var(--font-race); font-style: italic; font-weight: 700; font-size: 2rem; line-height: 1.05; }
+.meta { margin: 0; font-size: 0.85rem; color: var(--muted); }
+.track { max-width: 300px; align-self: center; width: 100%; }

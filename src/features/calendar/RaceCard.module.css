@@ -1,0 +1,21 @@
+.card {
+  position: relative; overflow: hidden; width: 100%; text-align: left; cursor: pointer;
+  display: grid; grid-template-columns: 30px minmax(0, 1fr) 84px; gap: var(--space-2); align-items: center;
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  transition: border-color 150ms, transform 150ms;
+}
+.card::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 3px; background: var(--team); }
+.card:hover { border-color: var(--team); transform: translateY(-1px); }
+.card[aria-pressed='true'] { border-color: var(--team); box-shadow: inset 0 0 0 1px var(--team); }
+.next { border-color: var(--accent); }
+.upcoming { background: transparent; border-style: dashed; }
+.round { align-self: start; font-family: var(--font-race); font-style: italic; font-weight: 700; font-size: 1.6rem; line-height: 1; color: var(--muted); }
+.body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.name { font-weight: 700; font-size: 0.95rem; line-height: 1.25; }
+.meta { font-size: 0.75rem; color: var(--muted); }
+.podium { display: flex; flex-wrap: wrap; gap: 2px var(--space-3); margin-top: var(--space-1); font-size: 0.78rem; color: var(--muted); }
+.winner { color: var(--ink); font-weight: 600; }
+.badge { align-self: flex-start; margin-top: var(--space-1); padding: 1px 10px; border-radius: 999px; background: var(--accent); color: #fff; font-size: 0.72rem; font-weight: 600; }
+.thumb { opacity: 0.85; }
+.card:hover .thumb { opacity: 1; }

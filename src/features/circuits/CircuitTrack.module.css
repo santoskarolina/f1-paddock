@@ -1,0 +1,13 @@
+.svg { display: block; width: 100%; height: auto; overflow: visible; }
+.base { fill: none; stroke: var(--line); stroke-linejoin: round; stroke-linecap: round; }
+.line { fill: none; stroke: var(--track-color); stroke-linejoin: round; stroke-linecap: round; }
+.start { fill: var(--bg); stroke: var(--ink); }
+.car { fill: var(--track-color); stroke: var(--bg); stroke-width: 2; filter: drop-shadow(0 0 4px var(--track-color)); }
+
+.full .base { stroke-width: 12; }
+.full .line { stroke-width: 4; }
+.full .start { stroke-width: 2; }
+
+.thumb .base { stroke-width: 0; }
+.thumb .line { stroke-width: 2.2; }
+.thumb .start { stroke-width: 1; }

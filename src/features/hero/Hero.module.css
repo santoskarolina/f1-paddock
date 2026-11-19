@@ -1,0 +1,26 @@
+.hero { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: var(--space-8); align-items: stretch; }
+@media (max-width: 820px) { .hero { grid-template-columns: 1fr; } }
+.main { padding: var(--space-8) 0 var(--space-4); }
+.checker {
+  width: min(240px, 55%); height: 14px; margin-bottom: var(--space-6);
+  background-image:
+    linear-gradient(45deg, var(--ink) 25%, transparent 25%, transparent 75%, var(--ink) 75%),
+    linear-gradient(45deg, var(--ink) 25%, transparent 25%, transparent 75%, var(--ink) 75%);
+  background-size: 14px 14px; background-position: 0 0, 7px 7px;
+  mask-image: linear-gradient(90deg, #000 40%, transparent);
+}
+.season { margin: 0 0 var(--space-2); color: var(--muted); }
+.title {
+  margin: 0 0 var(--space-4); max-width: 17ch;
+  font-family: var(--font-race); font-style: italic; font-weight: 700;
+  font-size: clamp(2.4rem, 6vw, 4.4rem); line-height: 0.95; letter-spacing: -0.01em;
+}
+.lede { margin: 0; max-width: 58ch; font-size: 1.1rem; }
+.leader { display: flex; align-items: center; gap: var(--space-4); margin-top: var(--space-6); }
+.leaderNumber { font-family: var(--font-race); font-style: italic; font-weight: 700; font-size: 4.5rem; line-height: 0.8; color: var(--team); }
+.leaderMeta { display: flex; flex-direction: column; font-size: 0.8rem; color: var(--muted); }
+.leaderMeta strong { font-size: 1.05rem; color: var(--ink); }
+.leaderStats { display: flex; gap: var(--space-6); margin: 0 0 0 auto; }
+.leaderStats div { display: flex; flex-direction: column-reverse; align-items: flex-end; }
+.leaderStats dt { font-size: 0.75rem; color: var(--muted); }
+.leaderStats dd { margin: 0; font-family: var(--font-race); font-style: italic; font-weight: 700; font-size: 2.2rem; line-height: 1; }

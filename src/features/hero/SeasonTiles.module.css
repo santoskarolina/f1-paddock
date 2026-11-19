@@ -1,0 +1,4 @@
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--space-4); margin: 0; }
+.tile { display: flex; flex-direction: column-reverse; padding-left: var(--space-4); border-left: 3px solid var(--line); }
+.tile dt { font-size: 0.85rem; color: var(--muted); }
+.tile dd { margin: 0; font-family: var(--font-race); font-style: italic; font-weight: 700; font-size: 2.8rem; line-height: 1; }

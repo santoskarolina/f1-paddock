@@ -1,0 +1,5 @@
+.clock { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-2); }
+.unit { display: flex; flex-direction: column; align-items: center; padding: var(--space-2) 0; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; }
+.value { font-family: var(--font-race); font-style: italic; font-weight: 700; font-size: 2rem; line-height: 1.05; }
+.label { font-size: 0.7rem; color: var(--muted); }
+.live { margin: 0; font-weight: 700; color: var(--accent); }
