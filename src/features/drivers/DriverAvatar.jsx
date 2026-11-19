@@ -5,7 +5,11 @@ const DRIVERS_PHOTO = {
   'rafael_camara': '/drivers/rafael_camara.avif',
   'tsunoda': '/drivers/tsunoda.png',
   'ryo_hirakawa': '/drivers/hirakawa.jpg',
-  'arvid_lindblad': '/drivers/arvid_lindblad.avif'
+  'arvid_lindblad': '/drivers/arvid_lindblad.avif',
+  'senna': '/drivers/senna.jfif',
+  'michael_schumacher': '/drivers/michael_schumacher.jfif',
+  'alonso': '/drivers/alonso.jfif',
+  'barrichello': '/drivers/barrichello.jpg',
 }
 
 /**

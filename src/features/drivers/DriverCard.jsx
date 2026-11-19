@@ -3,13 +3,13 @@ import { formatNumber } from '../../utils/format';
 import { DriverAvatar } from './DriverAvatar';
 import styles from './DriverCard.module.css';
 
-/** Cartão do grid. É um botão: ao clicar, abre a carta colecionável do piloto. */
 export function DriverCard({ driver, onSelect }) {
   const stats = [
     { label: 'pontos', value: driver.points },
     { label: 'vitórias', value: driver.wins },
     { label: 'pódios', value: driver.podiums },
   ];
+  const pisitionLabel = driver.position ? `${driver.position}º no campeonato` : 'posição não definida';
 
   return (
     <button
@@ -23,7 +23,7 @@ export function DriverCard({ driver, onSelect }) {
       <span className={styles.top}>
         <DriverAvatar driver={driver} size={56} />
         <span className={styles.identity}>
-          <span className={styles.position}>{driver.position}º no campeonato</span>
+          <span className={styles.position}>{pisitionLabel}</span>
           <span className={styles.name}><Flag iso={driver.nationalityIso} />{driver.name}</span>
           <span className={styles.team}>{driver.team.name}</span>
         </span>
