@@ -8,7 +8,8 @@
 .marker:hover .dot, .marker:focus-visible .dot { r: 8; }
 .upcoming .dot { fill: var(--bg); stroke: var(--muted); stroke-width: 2; }
 .next .dot { fill: var(--accent); }
-.pulse { fill: none; stroke: var(--accent); stroke-width: 2; transform-origin: center; animation: pulse 1.8s ease-out infinite; }
+/* fill-box: o "center" passa a ser o centro do próprio círculo, e não o centro do SVG inteiro. */
+.pulse { fill: none; stroke: var(--accent); stroke-width: 2; transform-box: fill-box; transform-origin: center; animation: pulse 1.8s ease-out infinite; }
 @keyframes pulse { from { transform: scale(0.6); opacity: 1; } to { transform: scale(2); opacity: 0; } }
 .tooltip { display: flex; flex-direction: column; padding: var(--space-2) var(--space-3); font-size: 0.8rem; min-width: 180px; }
 .tooltip span { color: var(--muted); }
